@@ -4,6 +4,8 @@ All notable changes to ReportFoundry will be documented in this file.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-21
+
 ### Added
 - Fluent API for programmatic PDF report generation.
 - Independent document layout and pagination engine.
