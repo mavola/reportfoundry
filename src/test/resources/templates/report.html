@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        @page {
+            size: A4;
+            margin: 70px 45px 60px 45px;
+
+            @top-center {
+                content: element(report-header);
+            }
+
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages);
+                font-size: 10px;
+                color: #777777;
+            }
+        }
+
+        body {
+            font-family: sans-serif;
+            font-size: 11px;
+            color: #333333;
+        }
+
+        .report-header {
+            position: running(report-header);
+            width: 100%;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 8px;
+        }
+
+        .report-header-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0 0 5px 0;
+        }
+
+        .subtitle {
+            color: #777777;
+            margin-bottom: 25px;
+        }
+
+        .customer {
+            background-color: #f5f5f5;
+            padding: 12px;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            -fs-table-paginate: paginate;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        th {
+            background-color: #2d3748;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .quantity {
+            width: 15%;
+            text-align: center;
+        }
+
+        .price {
+            width: 20%;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-header">
+        <span class="report-header-title" th:text="${company}">Company</span>
+    </div>
+
+    <h1 th:text="${title}">Report</h1>
+    <div class="subtitle" th:text="${description}">Description</div>
+
+    <div class="customer">
+        <strong>Customer:</strong>
+        <span th:text="${customer.name}">Customer</span>
+        <br/>
+        <span th:text="${customer.email}">Email</span>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th class="quantity">Quantity</th>
+            <th class="price">Price</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}">Product</td>
+            <td class="quantity" th:text="${item.quantity}">0</td>
+            <td class="price" th:text="${item.price}">0.00</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
