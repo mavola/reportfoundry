@@ -5,9 +5,9 @@
 ReportFoundry is currently under active development.
 
 | Version | Supported |
-|---|---|
-| 0.1.0-SNAPSHOT | Development only |
-| Older versions | No |
+|---|-----------|
+| 0.1.0 | Yes       |
+| Older versions | No        |
 
 Security support information will be updated when the first stable release is published.
 

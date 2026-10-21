@@ -55,7 +55,7 @@ Add the dependency to your Maven project:
 <dependency>
     <groupId>net.reportfoundry</groupId>
     <artifactId>reportfoundry</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
