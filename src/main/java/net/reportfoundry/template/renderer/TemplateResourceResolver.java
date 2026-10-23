@@ -25,14 +25,30 @@ public class TemplateResourceResolver implements FSUriResolver {
                 jarDirectory = null;
             } else if ("jar".equalsIgnoreCase(templateBase.getScheme())) {
                 String value = templateBase.toString();
-                int separator = value.indexOf("!/");
+                int separator = value.lastIndexOf("!/");
 
-                if (!value.startsWith("jar:file:") || separator < 0) {
+                if (separator < 0) {
                     throw new IllegalArgumentException("Unsupported JAR base URI.");
                 }
 
-                Path jarFile = Path.of(URI.create(value.substring(4, separator))).toRealPath();
-                jarPrefix = "jar:" + jarFile.toUri() + "!/";
+                String prefix = value.substring(0, separator + 2);
+
+                if (value.startsWith("jar:file:")) {
+                    int firstSeparator = value.indexOf("!/");
+                    Path jarFile = Path.of(URI.create(value.substring(4, firstSeparator))).toRealPath();
+
+                    if (firstSeparator != separator) {
+                        throw new IllegalArgumentException("Unsupported nested JAR structure.");
+                    }
+
+                    prefix = "jar:" + jarFile.toUri() + "!/";
+                } else if (value.startsWith("jar:nested:")) {
+                    if (!prefix.contains(".jar/!BOOT-INF/")) {
+                        throw new IllegalArgumentException("Unsupported Spring Boot JAR structure.");
+                    }
+                } else {
+                    throw new IllegalArgumentException("Unsupported JAR base URI.");
+                }
 
                 String entry = value.substring(separator + 2);
 
@@ -42,6 +58,7 @@ public class TemplateResourceResolver implements FSUriResolver {
 
                 int lastSlash = entry.lastIndexOf('/');
                 jarDirectory = lastSlash >= 0 ? entry.substring(0, lastSlash + 1) : "";
+                jarPrefix = prefix;
                 allowedDirectory = null;
             } else {
                 throw new IllegalArgumentException("Unsupported template base URI.");

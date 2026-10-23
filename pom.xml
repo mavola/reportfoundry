@@ -7,7 +7,7 @@
 
     <groupId>net.reportfoundry</groupId>
     <artifactId>reportfoundry</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 
     <name>ReportFoundry</name>
     <description>A Java library for generating PDF reports using a fluent API or HTML templates.</description>
