@@ -254,9 +254,19 @@ Run the complete automated test suite:
 mvn clean verify
 ```
 
-The project uses JUnit 5 and Apache PDFBox for automated testing and PDF validation.
+ReportFoundry uses **JUnit Jupiter 6.1.3** and **Apache PDFBox** for automated testing and PDF validation.
 
-Tests cover document generation, pagination, tables, template resources, resource restrictions and security-related integration scenarios.
+The test suite covers:
+
+- Fluent API and PDF document generation.
+- Document layout, pagination and multi-page tables.
+- Page headers, footers and page numbering.
+- Thymeleaf HTML templates and resource resolution.
+- External CSS, images and custom TrueType fonts.
+- Spring Boot executable JAR and nested JAR resource support.
+- Resource access restrictions and security regression scenarios.
+
+Tests are automatically executed through **GitHub Actions** using Java 17 and Maven.
 
 ## Project Status
 
